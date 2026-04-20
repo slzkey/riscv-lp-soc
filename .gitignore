@@ -1,9 +1,10 @@
 #忽略派生文件夹
-work/*
+work/**/*
 build/
-
 #豁免.db和wrapper.v，由于采用Block Design，生成的wrapper.v在work文件夹下
+!work/**/
 #豁免任意深度下的.bd
 !work/**/*.bd
 #豁免任意深度的wrapper.v
 !work/**/*_wrapper.v
+!work/**/*_wrapper.vhd
