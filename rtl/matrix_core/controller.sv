@@ -63,7 +63,7 @@ always_ff @(posedge clk)begin
 end
 
 //地址生成与控制逻辑
-always_comb begin : 
+always_comb begin 
     //默认值
     acc_clear = 1'b0;
     finish = 1'b0;
@@ -93,9 +93,10 @@ always_comb begin :
         FINISH: begin
             finish = 1'b1;//FINISH状态拉高完成信号，通知CPU可以读结果了
         end
+        default: ;
     endcase
 end
-//写信号打2拍延迟
+//写信号打1拍延迟
 
 always_ff @(posedge clk)begin
     if(!rst_n) begin
@@ -103,10 +104,12 @@ always_ff @(posedge clk)begin
         ram_waddr <= 0;
     end
     else begin
-        ram_wen_dly <= ram_wen_pre;
+       /*  ram_wen_dly <= ram_wen_pre;
         ram_waddr_dly <= ram_waddr_pre;
         ram_wen <= ram_wen_dly;
-        ram_waddr <= {4'b0,ram_waddr_dly};
+        ram_waddr <= {4'b0,ram_waddr_dly}; */
+        ram_wen <= ram_wen_pre;
+        ram_waddr <= {4'b0,ram_waddr_pre};
     end
-
+end
 endmodule

@@ -103,7 +103,8 @@ module tb_axis_matrix_top;
     endtask
 
     //主测试序列
-    
+    integer i,j;
+    logic [31:0] read_val=0;
     //1. 初始化总线信号，释放复位
     initial begin
         rst_n = 0;
@@ -123,7 +124,7 @@ module tb_axis_matrix_top;
         $display("Test Start. 开始配置矩阵...");
     
     //2. 写入X矩阵
-        int i,j;
+        
         for (i=0;i<C_S_AXI_DATA_WIDTH;i++)
         begin
             axi_write(12'h100 + i*4, 2); // 写入X矩阵元素，基地址100地址递增，数据全为2
@@ -139,8 +140,8 @@ module tb_axis_matrix_top;
         axi_write(12'h000, 32'd1); // 写控制寄存器启动计算，地址000，数据1表示启动
         axi_write(12'h000, 32'd0); // 结束启动脉冲。
         //5. 轮询等待加速器完成
-        $$display("/n【TB】等待硬件计算...");
-        logic [31:0] read_val=0;
+        $display("【TB】等待硬件计算...");
+        
         while (read_val == 0) begin
             axi_read(12'h004, read_val); // 读取状态寄存器，地址004，等待非0表示完成
             @(posedge clk);
@@ -158,5 +159,6 @@ module tb_axis_matrix_top;
         end
             $display("======================================");
         $display("Test Finished. 测试完成.结果应该都是48");
+        $finish;
     end
 endmodule
