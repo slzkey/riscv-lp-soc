@@ -2,7 +2,7 @@
 <spirit:component xmlns:xilinx="http://www.xilinx.com" xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <spirit:vendor>xilinx.com</spirit:vendor>
   <spirit:library>user</spirit:library>
-  <spirit:name>axis_matrix_mac</spirit:name>
+  <spirit:name>axis_matrix_top</spirit:name>
   <spirit:version>1.0</spirit:version>
   <spirit:busInterfaces>
     <spirit:busInterface>
@@ -191,7 +191,6 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>ASSOCIATED_BUSIF</spirit:name>
-          <spirit:description>S_AXI</spirit:description>
           <spirit:value spirit:id="BUSIFPARAM_VALUE.S_AXI_ACLK.ASSOCIATED_BUSIF">S_AXI</spirit:value>
         </spirit:parameter>
         <spirit:parameter>
@@ -229,7 +228,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>008fab85</spirit:value>
+            <spirit:value>80ff60a2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -245,7 +244,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>008fab85</spirit:value>
+            <spirit:value>80ff60a2</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -619,7 +618,7 @@
       <spirit:file>
         <spirit:name>src/axis_matrix_top.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_6ed68714</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_d0f1fec9</spirit:userFileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -655,7 +654,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_xpgui_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>xgui/axis_matrix_mac_v1_0.tcl</spirit:name>
+        <spirit:name>xgui/axis_matrix_top_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_05b8bb7b</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
@@ -701,17 +700,14 @@
       </xilinx:taxonomies>
       <xilinx:displayName>axis_matrix_top_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:upgrades>
-        <xilinx:canUpgradeFrom>xilinx.com:user:axis_matrix_top:1.0</xilinx:canUpgradeFrom>
-      </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2026-04-25T17:00:22Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>2</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-04-26T13:59:43Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2025.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="69466ba1"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="da618e65"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="933b9ceb"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="8fddb72f"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7b3b96b6"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="726073cc"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="8721bc06"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="4c709dfa"/>

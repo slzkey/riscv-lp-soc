@@ -130,7 +130,7 @@ module axis_matrix_top #(
     logic acc_clear; //累加器清零信号
     logic [4:0] x_raddr_0, x_raddr_1; //矩阵X读地址
     logic [4:0] a_raddr_0, a_raddr_1; //矩阵A读
-    logic [19:0] mac_result;
+    logic [C_S_AXI_DATA_WIDTH-1:0] mac_result;
 
     //寄存器声明
     logic [C_S_AXI_DATA_WIDTH-1:0] slv_reg0; // 地址0x000 CPU可写 控制/状态寄存器 start/finish
@@ -181,7 +181,7 @@ module axis_matrix_top #(
     //BRAM_p读写
     logic [C_S_AXI_DATA_WIDTH-1:0] p_dout_cpu; //数据路径输出结果寄存器
     always_ff @(posedge S_AXI_ACLK)begin
-        if (ram_wen) bram_p[ram_waddr[3:0]] <= {12'b0,mac_result};//写结果到BRAM_p，假设结果是20bit，放在低20位
+        if (ram_wen) bram_p[ram_waddr[3:0]] <= mac_result;//写结果到BRAM_p，假设结果是20bit，放在低20位
         p_dout_cpu <= bram_p[S_AXI_ARADDR[5:2]]; //CPU读结果寄存器
     end
 
@@ -232,10 +232,10 @@ module axis_matrix_top #(
         .rst_n(S_AXI_ARESETN),
         //controller控制信号
         .acc_clear(acc_clear),
-        .data_x_0(x_dout_0[7:0]), //从BRAM_X读出的矩阵X元素
-        .data_x_1(x_dout_1[7:0]),
-        .data_a_0(a_dout_0[6:0]), //从BRAM_A读出的矩阵A元素
-        .data_a_1(a_dout_1[6:0]),
+        .data_x_0(x_dout_0[C_S_AXI_ADDR_WIDTH-1:0]), //从BRAM_X读出的矩阵X元素
+        .data_x_1(x_dout_1[C_S_AXI_ADDR_WIDTH-1:0]),
+        .data_a_0(a_dout_0[C_S_AXI_ADDR_WIDTH-1:0]), //从BRAM_A读出的矩阵A元素
+        .data_a_1(a_dout_1[C_S_AXI_ADDR_WIDTH-1:0]),
         .mac_result(mac_result)
     );
 

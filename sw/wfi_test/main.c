@@ -19,7 +19,7 @@
 void button_isr(void) {
     neorv32_uart0_printf("\n[ISR] 外部中断触发！CPU已唤醒。\n");
     //1.灌入测试数据
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 32; i++) {
         BRAM_MAT_X[i] = i + 1; //矩阵X: 1,2,...,16
         BRAM_MAT_A[i] = (i + 1) * 10; //矩阵A: 10,20,...,160
     }
@@ -34,7 +34,7 @@ void button_isr(void) {
     //4.读取结果
     neorv32_uart0_printf("[ISR] 计算完成，结果矩阵P:\n");
     for (int i = 0; i < 16; i++) {
-        neorv32_uart0_printf("%4u\t", BRAM_MAT_P[i]);
+        neorv32_uart0_printf("%u\t", BRAM_MAT_P[i]);
         if ((i + 1) % 4 == 0) neorv32_uart0_printf("\n");
     }
     //5.清除状态寄存器
@@ -53,8 +53,8 @@ int main() {
     //3.绑定中断：发生机器外部中断MEI时执行button_isr函数
     neorv32_rte_handler_install(RTE_TRAP_MEI, button_isr);
     //4.使能中断
-    neorv32_cpu_irq_enable(CSR_MIE_MEIE);//使能MEI通道
-    neorv32_cpu_eint(); //全局使能中断
+    neorv32_cpu_csr_set(CSR_MIE, 1 << CSR_MIE_MEIE); //使能MEI中断
+    neorv32_cpu_csr_set(CSR_MSTATUS, 1 << CSR_MSTATUS_MIE); //全局使能中断
 
     neorv32_uart0_printf("系统已进入低功耗等待外部中断...\n");
     //5.主循环：事件驱动
@@ -62,7 +62,7 @@ int main() {
         neorv32_uart0_printf("主循环: CPU sleeping...\n");
 
         //运行汇编指令wfi等待中断。
-        asm volatile ("wfi"); //等待中断，进入低功耗模式
+        neorv32_cpu_sleep(); //等待中断，进入低功耗模式
     }
 
     return 0;

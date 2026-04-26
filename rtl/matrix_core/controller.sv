@@ -32,11 +32,9 @@ assign k_step = global_cnt[1:0];
 assign j_cnt  = global_cnt[3:2];
 assign i_cnt  = global_cnt[5:4];
 
-//预备写信号，用来打2拍延迟
+//预备写信号，用来打1拍延迟
 logic ram_wen_pre;
 logic [4:0] ram_waddr_pre;
-logic ram_wen_dly;
-logic [4:0] ram_waddr_dly;
 
 //3段式状态机
 //段1：状态转移 （纯时序）
@@ -104,10 +102,6 @@ always_ff @(posedge clk)begin
         ram_waddr <= 0;
     end
     else begin
-       /*  ram_wen_dly <= ram_wen_pre;
-        ram_waddr_dly <= ram_waddr_pre;
-        ram_wen <= ram_wen_dly;
-        ram_waddr <= {4'b0,ram_waddr_dly}; */
         ram_wen <= ram_wen_pre;
         ram_waddr <= {4'b0,ram_waddr_pre};
     end
