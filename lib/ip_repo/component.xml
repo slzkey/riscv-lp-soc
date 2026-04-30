@@ -228,7 +228,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>80ff60a2</spirit:value>
+            <spirit:value>72a7b69a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -244,7 +244,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>80ff60a2</spirit:value>
+            <spirit:value>72a7b69a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -259,7 +259,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>3849d2a2</spirit:value>
+            <spirit:value>fc4113b6</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -616,9 +616,9 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/axis_matrix_top.sv</spirit:name>
+        <spirit:name>src/axis_matrix_top_gated_clk.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_d0f1fec9</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_7b77e56b</spirit:userFileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -635,7 +635,7 @@
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>src/axis_matrix_top.sv</spirit:name>
+        <spirit:name>src/axis_matrix_top_gated_clk.sv</spirit:name>
         <spirit:fileType>systemVerilogSource</spirit:fileType>
         <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
       </spirit:file>
@@ -649,6 +649,12 @@
         <spirit:userFileType>USED_IN_implementation</spirit:userFileType>
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
         <spirit:userFileType>USED_IN_synthesis</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>src/tb_axis_matrix_top_behav.wcfg</spirit:name>
+        <spirit:fileType>unknown</spirit:fileType>
+        <spirit:userFileType>IMPORTED_FILE</spirit:userFileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -701,13 +707,13 @@
       <xilinx:displayName>axis_matrix_top_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-04-26T13:59:43Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2026-04-30T17:04:35Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2025.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="da618e65"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="933b9ceb"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="7b3b96b6"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="9e8f4f68"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="726073cc"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="8721bc06"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="4c709dfa"/>

@@ -1,0 +1,1 @@
+#create_generated_clock -name mac_gated_clk -source [get_pins system_top_i/axis_matrix_gatedclk_0/inst/u_bufgce_mac/I0] -divide_by 1 [get_pins system_top_i/axis_matrix_gatedclk_0/inst/u_bufgce_mac/O]

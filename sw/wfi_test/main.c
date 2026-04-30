@@ -13,6 +13,37 @@
 #define BRAM_MAT_A ((volatile uint32_t*)(MATRIX_BASE + 0x200)) //矩阵A基地址
 #define BRAM_MAT_P ((volatile uint32_t*)(MATRIX_BASE + 0x300)) //结果矩阵P基地址
 
+
+void extreme_hold_test(void){
+    //1.开启时钟
+    neorv32_uart0_printf("\n-----开始极端 Hold 测试----\n");
+    *REG_CTRL |= (1<<2);//开启时钟
+    *REG_CTRL |= (1<<0);//开启计算脉冲
+    *REG_CTRL &= ~(1<<0);//结束计算脉冲
+
+    //2.不等待finish，毫秒级直接关闭时钟
+    *REG_CTRL &= ~(1<<2);
+    neorv32_uart0_printf("[Test] 强行挂起内核时钟！当前系统已冻结。\n");
+    //3.模拟长时间等待
+    for (volatile uint32_t wait_cnt = 0; wait_cnt < 5000000; wait_cnt++) {
+        asm volatile ("nop");
+    }
+    //4.恢复时钟
+    neorv32_uart0_printf("[Test]恢复时钟，观察内核能否断电续传....\n");
+    *REG_CTRL |= (1<<2);
+    //5.等待最终完成
+    while ((*REG_STATUS & 0x01) == 0) {
+        asm volatile ("nop"); 
+    }
+    //6.读取结果
+    neorv32_uart0_printf("[Test] Hold 计算完成，结果矩阵P:\n");
+    for (int i = 0; i < 16; i++) {
+        neorv32_uart0_printf("%u\t", BRAM_MAT_P[i]);
+        if ((i + 1) % 4 == 0) neorv32_uart0_printf("\n");
+    }
+
+}
+
 //============================
 //中断服务历程ISR
 //=============================
@@ -25,8 +56,9 @@ void button_isr(void) {
     }
     //2.启动加速器
     neorv32_uart0_printf("[ISR] 启动加速器...\n");
-    *REG_CTRL = 1; //写1启动计算
-    *REG_CTRL = 0; //写0复位控制寄存器
+    *REG_CTRL |= (1<<2); //打开内核时钟 bit2=1 b100
+    *REG_CTRL |= (1<<0); //写1启动计算 bit0=1 b101
+    *REG_CTRL &= ~(1<<0); //写0复位控制寄存器，保持时钟打开 bit0=0
     //3.等待计算完成
     while ((*REG_STATUS & 0x01) == 0) {
         asm volatile ("nop"); //空指令防止循环被编译器优化掉
@@ -39,7 +71,13 @@ void button_isr(void) {
     }
     //5.清除状态寄存器
     *REG_STATUS = 0; //清除状态寄存器
+    *REG_CTRL = 0x00; //关闭内核时钟 bit2=0 b000
+    neorv32_uart0_printf("[Power]内核时钟关闭。\n");
+
+    //运行结束启动hold测试
+    extreme_hold_test();
 }
+
 
 //============================
 //主函数

@@ -127,22 +127,25 @@ module tb_axis_matrix_top;
         
         for (i=0;i<C_S_AXI_DATA_WIDTH;i++)
         begin
-            axi_write(12'h100 + i*4, 2); // 写入X矩阵元素，基地址100地址递增，数据全为2
+            axi_write(12'h100 + i*4, 32'h2); // 写入X矩阵元素，基地址100地址递增，数据全为2
+            $display ("X:[%0d]=2",i);
         end
         //3. 写入A矩阵
         for (i=0;i<C_S_AXI_DATA_WIDTH;i++)
         begin
-            axi_write(12'h200 + i*4, 3); // 写入A矩阵元素，基地址200地址递增，数据全为3
+            axi_write(12'h200 + i*4, 32'h3); // 写入A矩阵元素，基地址200地址递增，数据全为3
+            $display ("A:[%0d]=3",i);
         end
 
         $display("矩阵配置完成，启动加速器进行计算...");
         //4. 启动加速器
-        axi_write(12'h000, 32'd1); // 写控制寄存器启动计算，地址000，数据1表示启动
-        axi_write(12'h000, 32'd0); // 结束启动脉冲。
+        axi_write(12'h000, 32'h4); // 写控制寄存器启动内部时钟
+        axi_write(12'h000,32'h5);//写控制寄存器，启动计算
+        axi_write(12'h000, 32'h4); // 结束启动脉冲。
         //5. 轮询等待加速器完成
         $display("【TB】等待硬件计算...");
         
-        while (read_val == 0) begin
+        while ((read_val &32'h1) == 0) begin
             axi_read(12'h004, read_val); // 读取状态寄存器，地址004，等待非0表示完成
             @(posedge clk);
         end
